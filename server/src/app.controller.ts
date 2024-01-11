@@ -12,6 +12,7 @@ export class AppController {
 
   @Get('profile')
   profile(): string {
+    console.log(':::PROFILE:::');
     return 'Profile Hello';
   }
 }
