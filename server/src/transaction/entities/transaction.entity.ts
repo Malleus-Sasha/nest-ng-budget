@@ -1,10 +1,18 @@
-import { Category } from "src/category/entities/category.entity";
-import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Category } from 'src/category/entities/category.entity';
+import { User } from 'src/user/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Transaction {
-  @PrimaryColumn({ name: 'transaction_id'})
+  @PrimaryGeneratedColumn({ name: 'transaction_id' })
   id: number;
 
   @Column()
