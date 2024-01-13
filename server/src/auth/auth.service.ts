@@ -23,6 +23,7 @@ export class AuthService {
   }
 
   async login(user: IUser) {
+    console.log(':LOGIN', user);
     const { id, email } = user;
     return {
       id,

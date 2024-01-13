@@ -78,4 +78,24 @@ export class TransactionService {
 
     return await this.transactionRepository.delete(id);
   }
+
+  async findAllWithPagination(id: number, page: number, limit: number) {
+    console.log(':PAGIN:', id, page, limit, 'skip:', page - 1);
+    const transactions = await this.transactionRepository.find({
+      where: {
+        user: { id },
+      },
+      // relations: {
+      //   category: true,
+      //   user: true,
+      // },
+      order: {
+        createdAt: 'DESC',
+      },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    return transactions;
+  }
 }
