@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,6 +12,7 @@ export class UserService {
 
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -27,11 +29,13 @@ export class UserService {
       password: await argonHash(createUserDto.password),
     });
     // return 'This action SHD adds a new user' + JSON.stringify(createUserDto);
-    return { user };
+    const token = await this.jwtService.sign({ email: createUserDto.email });
+
+    return { user, token };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(email: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ where: { email } });
   }
 
   // --------

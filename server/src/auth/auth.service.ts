@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { UserService } from 'src/user/user.service';
+import { verify } from 'argon2';
+import { JwtService } from '@nestjs/jwt';
+import { IUser } from './types/types';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private usersService: UserService,
+    private jwtService: JwtService,
+  ) {}
+
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.usersService.findOne(email);
+    const passwordIsMatch = await verify(user.password, pass);
+
+    if (user && passwordIsMatch) {
+      return user;
+    }
+    throw new UnauthorizedException('User or password are incorrect!');
+    return null;
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async login(user: IUser) {
+    const { id, email } = user;
+    return {
+      id,
+      email,
+      access_token: this.jwtService.sign({ id, email }),
+    };
   }
 }
