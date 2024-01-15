@@ -7,7 +7,6 @@ import { Transaction } from './entities/transaction.entity';
 
 @Injectable()
 export class TransactionService {
-
   constructor(
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
@@ -42,6 +41,18 @@ export class TransactionService {
     });
 
     return transactions;
+  }
+
+  // SUM
+  async findAllByType(id: number, type: string) {
+    const transactions = await this.transactionRepository.find({
+      where: {
+        user: { id },
+        type,
+      },
+    });
+
+    return transactions.reduce((acc, obj) => acc + obj.amount, 0);
   }
 
   async findOne(id: number) {
