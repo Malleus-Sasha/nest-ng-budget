@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SignupComponent {
   userDate: FormGroup;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.userDate = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -19,6 +20,7 @@ export class SignupComponent {
   onSubmit() {
     if (this.userDate.valid) {
       console.log(this.userDate.value);
+      this.authService.singUp(this.userDate.value);
     } else {
       console.log('Not Valid');
     }
