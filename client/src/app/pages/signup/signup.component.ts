@@ -19,7 +19,7 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.userDate.valid) {
-      console.log(this.userDate.value);
+      // console.log(this.userDate.value);
       this.authService.singUp(this.userDate.value);
     } else {
       console.log('Not Valid');
