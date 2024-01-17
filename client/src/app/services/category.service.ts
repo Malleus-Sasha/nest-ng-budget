@@ -33,4 +33,10 @@ export class CategoryService {
       this.toastr.warning('Deleted');
     });
   }
+
+  update(id: number, title: string) {
+    this.http.patch(`category/${id}`, { title }).subscribe(() => {
+      this.categoriesSig.update((data) => data.map((item) => (item.id === id ? {...item, title} : item)));
+    });
+  }
 }

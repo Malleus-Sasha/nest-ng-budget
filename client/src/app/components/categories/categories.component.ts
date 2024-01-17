@@ -13,6 +13,10 @@ export class CategoriesComponent implements OnInit {
   removeIcon = faRemove;
   editIcon = faEdit;
 
+  categoryId = 0;
+  title = '';
+  method: 'create' | 'update' = 'create';
+
   constructor(public categoryService: CategoryService) {
     this.categoryForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -29,10 +33,25 @@ export class CategoriesComponent implements OnInit {
 
   onSubmit() {
     console.log('ctgr sbmt');
-    if (this.categoryForm.value) {
-      console.log('Ctgrs:', this.categoryForm.value);
+    if (this.method === 'create') {
+      // console.log('Ctgrs:', this.categoryForm.value);
       this.categoryService.create(this.categoryForm.value.title);
       this.categoryForm.reset();
     }
+    if (this.method === 'update') {
+      this.update();
+      this.categoryForm.reset();
+      this.method = 'create';
+    }
+  }
+
+  update() {
+    this.categoryService.update(this.categoryId, this.categoryForm.value.title);
+  }
+
+  edit(id: number, title: string) {
+    this.categoryId = id;
+    this.categoryForm.setValue({title});
+    this.method = 'update';
   }
 }
