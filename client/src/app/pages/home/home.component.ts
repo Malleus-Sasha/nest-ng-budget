@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-home',
   template: `
-    <div class="grid col-span-3 gap-4">
-      <div class="grid col-span-2 shadow p-4 rounded">
+    <div class="grid grid-cols-3 gap-4">
+      <div class="grid col-span-2 p-4 shadow rounded">
         <app-transactions/>
       </div>
       <div class="grid">
