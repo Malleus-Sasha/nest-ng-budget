@@ -1,0 +1,20 @@
+<div class="p-4 shadow rounded grid">
+  <div>
+    <div class="flex flex-wrap items-center gap-2 mb-5">
+      <div class="flex py-2 px-8 bg-blue-600 text-xs text-white relative">
+        <p>title</p>
+        <button class="absolute left-2">
+          <fa-icon [icon]="removeIcon"></fa-icon>
+        </button>
+        <button class="absolute right-2">
+          <fa-icon [icon]="editIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <input formControlName="title" type="text" placeholder="Category name.." class="input flex w-full">
+      <button [disabled]="categoryForm.invalid" class="btn btn-green mt-2 w-full flex" type="submit">Submit</button>
+    </form>
+  </div>
+</div>
