@@ -23,6 +23,14 @@ export class CategoryService {
   create(title: string) {
     return this.http.post<Category>('category', { title }).subscribe((res) => {
       this.categoriesSig.update((categories) => [...categories, res]);
+      this.toastr.success('Created');
     })
+  }
+
+  delete(id: number) {
+    return this.http.delete(`category/${id}`).subscribe(() => {
+      this.categoriesSig.update((data) => data.filter((item) => item.id !== id));
+      this.toastr.warning('Deleted');
+    });
   }
 }

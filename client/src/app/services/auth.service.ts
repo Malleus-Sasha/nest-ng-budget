@@ -46,7 +46,7 @@ export class AuthService {
     ).subscribe((res) => {
       localStorage.setItem('token', res.access_token)
       this.isAuthSig.set(true);
-      this.toastr.success('Created');
+      this.toastr.success('Login');
       this.router.navigate(['/home']);
     });
   }

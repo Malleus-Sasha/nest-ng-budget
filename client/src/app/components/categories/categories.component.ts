@@ -13,7 +13,7 @@ export class CategoriesComponent implements OnInit {
   removeIcon = faRemove;
   editIcon = faEdit;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(public categoryService: CategoryService) {
     this.categoryForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(4)]),
     })
@@ -23,10 +23,16 @@ export class CategoriesComponent implements OnInit {
     this.categoryService.findAll();
   }
 
+  delete(id: number) {
+    this.categoryService.delete(id);
+  }
+
   onSubmit() {
     console.log('ctgr sbmt');
     if (this.categoryForm.value) {
       console.log('Ctgrs:', this.categoryForm.value);
+      this.categoryService.create(this.categoryForm.value.title);
+      this.categoryForm.reset();
     }
   }
 }

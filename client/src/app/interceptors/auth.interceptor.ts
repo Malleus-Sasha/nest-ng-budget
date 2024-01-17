@@ -4,10 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class authInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   // let secureReq;
   // intercept
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(':i:auth:', req);
     const token = localStorage.getItem('token');
     if (token) {
       req = req.clone({
