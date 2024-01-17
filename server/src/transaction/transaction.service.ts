@@ -13,6 +13,7 @@ export class TransactionService {
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto, id: number) {
+    console.log(':TR:Create:');
     const { title, amount, type, category } = createTransactionDto;
     const transaction = {
       title,

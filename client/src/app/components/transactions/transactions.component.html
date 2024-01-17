@@ -13,14 +13,15 @@
       formControlName="amount"
       placeholder="Title..."
       class="input"
-      type="text">
+      type="number">
   </label>
 
   <label class="grid gap-1">
     <span>Category</span>
     <select formControlName="category" class="input">
-      <option value="1">1</option>
-      <option value="2">2</option>
+      <option *ngFor="let category of this.categoryService.categoriesSig()" [value]="category.id">
+        {{ category.title }}
+      </option>
     </select>
   </label>
 

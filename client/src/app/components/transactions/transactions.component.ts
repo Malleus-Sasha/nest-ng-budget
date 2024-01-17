@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TransactionService } from '../../services/transaction.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-transactions',
@@ -8,7 +10,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TransactionsComponent {
   form: FormGroup;
 
-  constructor() {
+  constructor(
+    public transactionService: TransactionService,
+    public categoryService: CategoryService,
+  ) {
     this.form = this.initForm();
   }
 
@@ -23,5 +28,7 @@ export class TransactionsComponent {
 
   onSubmit() {
     console.log(this.form.value);
+    this.transactionService.create(this.form.value);
+    this.form.reset();
   }
 }
