@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrService } from 'ngx-toastr';
 import { IAuthUser, IUser } from "../types/user.i";
@@ -10,11 +10,17 @@ import { catchError, tap } from "rxjs";
   providedIn: 'root',
 })
 export class AuthService {
+
+  isAuthSig = signal<boolean>(false);
+
   constructor(
     private router: Router,
     private http: HttpClient,
     private toastr: ToastrService,
-  ) {}
+  ) {
+    const token = localStorage.getItem('token');
+    this.isAuthSig.set(!!token);
+  }
 
   singUp(userData: IAuthUser) {
     return this.http.post(`${API_URL}/user`, userData).pipe(
@@ -22,7 +28,10 @@ export class AuthService {
         this.handlerError(err);
         throw new Error(err.message);
       })
-    ).subscribe(() => this.toastr.success('Created'));
+    ).subscribe(() => {
+      this.toastr.success('Created');
+      this.login(userData);
+    });
   }
 
   login(userData: IAuthUser) {
@@ -31,13 +40,23 @@ export class AuthService {
         this.handlerError(err);
         throw new Error(err.message);
       }),
-      tap((res) => {
-        localStorage.setItem('token', res.token)
-      })
-    ).subscribe(() => this.toastr.success('Created'));
+      // tap((res) => {
+      //   localStorage.setItem('token', res.token)
+      // })
+    ).subscribe((res) => {
+      localStorage.setItem('token', res.access_token)
+      this.isAuthSig.set(true);
+      this.toastr.success('Created');
+      this.router.navigate(['/home']);
+    });
   }
 
-
+  logout() {
+    localStorage.removeItem('token');
+    this.isAuthSig.set(false);
+    this.router.navigate(['/login']);
+    this.toastr.success('logged out');
+  }
 
   private handlerError(err: HttpErrorResponse): void {
     this.toastr.error(err.error.message);
