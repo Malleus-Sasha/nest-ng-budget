@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     SignupComponent,
     HeaderComponent,
     CategoriesComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    TransactionsTableComponent
   ],
   imports: [
     BrowserModule,

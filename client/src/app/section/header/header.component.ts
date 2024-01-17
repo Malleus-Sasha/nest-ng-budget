@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent {
   logoutIcon = faArrowRightFromBracket;
+  houseIcon = faHouse;
 
   constructor(public authService: AuthService) {}
 

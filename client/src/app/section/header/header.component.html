@@ -1,6 +1,9 @@
 <header class="shadow-sm py-2">
   <div class="container mx-auto grid grid-cols-2 gap-5 justify-between py-4">
-    <a routerLink="/">Logo</a>
+    <a routerLink="/">
+      <fa-icon [icon]="houseIcon" class="text-white"></fa-icon>
+      Logo
+    </a>
     <nav *ngIf="authService.isAuthSig(); else isNotAuth" class="justify-end flex">
       <ul class="flex gap-5 items-center">
         <li class="text-white/50">

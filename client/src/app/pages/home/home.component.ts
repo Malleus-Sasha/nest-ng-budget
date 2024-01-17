@@ -11,6 +11,9 @@ import { Component } from '@angular/core';
         <app-categories/>
       </div>
     </div>
+    <div>
+      <app-transactions-table/>
+    </div>
   `,
   styles: ``
 })
