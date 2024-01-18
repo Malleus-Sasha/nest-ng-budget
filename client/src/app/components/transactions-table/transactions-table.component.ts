@@ -5,9 +5,15 @@ import { TransactionService } from '../../services/transaction.service';
 @Component({
   selector: 'app-transactions-table',
   templateUrl: './transactions-table.component.html',
+  styles: `
+    .ngx-pagination li a {
+      color: white;
+    }
+  `
 })
 export class TransactionsTableComponent implements OnInit {
   trashIcon = faTrash;
+  currentPage = 1;
 
   constructor(
     public transactionService: TransactionService,
@@ -15,5 +21,9 @@ export class TransactionsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.transactionService.findAll();
+  }
+
+  delete(id: number) {
+    this.transactionService.delete(id);
   }
 }

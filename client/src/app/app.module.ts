@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TransactionsTableComponent } from './components/transactions-table/tran
     HttpClientModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],

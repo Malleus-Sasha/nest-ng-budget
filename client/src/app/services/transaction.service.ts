@@ -36,7 +36,7 @@ export class TransactionService {
   }
 
   delete(id: number) {
-    this.http.delete(`transaction/transaction${id}`).subscribe(() => {
+    this.http.delete(`transaction/transaction/${id}`).subscribe(() => {
       this.transactionsSig.update((data) => data.filter((item) => item.id !== id));
       this.toastr.warning('Deleted Transaction');
     })
